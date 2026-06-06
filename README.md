@@ -1,27 +1,41 @@
-# Cloudflare Pages deployment
+# LED Second Hand Market - Deployment Guide
 
-This repository is set up as a simple static site that can be deployed to Cloudflare Pages from GitHub.
+This project is a pure static website for Cloudflare Pages.
 
-It also includes a Pages Function at `/api/hello`, which behaves like a small worker endpoint.
+## Required root files
 
-## What to do next
+Keep these files in the repository root:
 
-1. Create a GitHub repository for this folder.
-2. Push these files to the repository.
-3. In Cloudflare, go to Pages and connect the GitHub repo.
-4. Use these settings:
+- `index.html`
+- `style.css`
+- `script.js`
+
+## Deploy from GitHub to Cloudflare Pages
+
+1. Create a GitHub repository.
+2. Upload or push the three root files.
+3. Open Cloudflare Dashboard > Pages > Create a project.
+4. Connect your GitHub repository.
+5. Use these build settings:
    - Framework preset: `None`
    - Build command: leave empty
    - Build output directory: `/`
+6. Click `Save and Deploy`.
 
-## API route
+## Local testing
 
-Visit `/api/hello` after deployment to confirm the worker-style function is running.
+Open `index.html` in your browser to test quickly.
 
-## Local preview
+## Editing products
 
-Open `index.html` directly in a browser, or use any simple static server if you want local testing.
+All product data is in `script.js` inside the `products` array.
 
-## If you want Workers later
+You can update:
 
-If you decide to add a Cloudflare Worker later, I can scaffold a `wrangler.toml` and worker entry file for the same repo.
+- `name`
+- `image`
+- `specs`
+- `description`
+- `price`
+
+No backend or database is needed.

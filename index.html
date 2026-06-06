@@ -3,156 +3,85 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cloudflare Pages Starter</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f6f4ee;
-      --panel: #ffffff;
-      --text: #132238;
-      --muted: #5b6472;
-      --accent: #1f6feb;
-      --accent-strong: #0b4db3;
-      --border: #d7dce3;
-      --shadow: 0 16px 40px rgba(19, 34, 56, 0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, #fff8e7 0, transparent 35%),
-        linear-gradient(180deg, #faf8f2 0%, var(--bg) 100%);
-      display: grid;
-      place-items: center;
-      padding: 24px;
-    }
-
-    main {
-      width: min(760px, 100%);
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: clamp(24px, 5vw, 56px);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: #eef4ff;
-      color: var(--accent-strong);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    h1 {
-      margin: 18px 0 12px;
-      font-size: clamp(2.2rem, 5vw, 4.4rem);
-      line-height: 0.98;
-      letter-spacing: -0.04em;
-    }
-
-    p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.06rem;
-      line-height: 1.7;
-      max-width: 60ch;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 28px;
-    }
-
-    a {
-      text-decoration: none;
-      border-radius: 14px;
-      padding: 12px 18px;
-      font-weight: 700;
-      border: 1px solid transparent;
-      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
-    }
-
-    a:hover {
-      transform: translateY(-1px);
-    }
-
-    .primary {
-      background: var(--accent);
-      color: white;
-      box-shadow: 0 10px 24px rgba(31, 111, 235, 0.22);
-    }
-
-    .secondary {
-      border-color: var(--border);
-      color: var(--text);
-      background: #fff;
-    }
-
-    .footer {
-      margin-top: 30px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .status {
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: #f7f9fc;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.98rem;
-    }
-
-    .status strong {
-      color: var(--text);
-    }
-  </style>
+  <meta name="description" content="LED Second Hand Market - High-quality used LED displays for indoor and outdoor projects.">
+  <title>LED Second Hand Market</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <div class="badge">Cloudflare Pages ready</div>
-    <h1>Static site starter for GitHub deployment.</h1>
-    <p>
-      This repo is ready to connect to Cloudflare Pages from GitHub. Push these files to a repository,
-      link it in the Cloudflare dashboard, and Pages will build and publish the site automatically.
-    </p>
-    <div class="actions">
-      <a class="primary" href="https://developers.cloudflare.com/pages/" target="_blank" rel="noreferrer">Pages docs</a>
-      <a class="secondary" href="https://dash.cloudflare.com/" target="_blank" rel="noreferrer">Open Cloudflare</a>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#home" class="brand">LED Second Hand Market</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="top-nav" id="top-nav">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <div class="status" id="api-status"><strong>API status:</strong> checking /api/hello...</div>
-    <div class="footer">Replace this page with your real website content when you are ready.</div>
+  </header>
+
+  <main>
+    <section id="home-view" class="view-section">
+      <div class="hero">
+        <div class="container hero-content">
+          <p class="hero-kicker">Trusted stock for fast project delivery</p>
+          <h1>High-Quality Used LED Displays</h1>
+          <p class="hero-subtitle">Good condition, high brightness, customizable</p>
+          <a href="#products" class="btn btn-primary">Browse Products</a>
+        </div>
+      </div>
+
+      <section class="products-section" id="products-anchor">
+        <div class="container">
+          <div class="section-head">
+            <h2>Featured Used LED Displays</h2>
+            <p>Stock rotates frequently. Contact us for current availability and shipping options.</p>
+          </div>
+          <div id="products-grid" class="products-grid"></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="about-view" class="view-section hidden">
+      <div class="container text-panel">
+        <h2>About Us</h2>
+        <p>
+          LED Second Hand Market helps event companies, installers, and resellers source reliable used LED display cabinets.
+          Every batch is checked for module condition, brightness consistency, and stable operation before listing.
+        </p>
+        <p>
+          We support custom quantities, mixed models, and flexible logistics options for regional and international projects.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact-view" class="view-section hidden">
+      <div class="container text-panel">
+        <h2>Contact</h2>
+        <p>Email: sales@ledsecondhandmarket.com</p>
+        <p>Phone: +1 (555) 019-7823</p>
+        <p>Business hours: Monday to Saturday, 9:00 to 18:00</p>
+      </div>
+    </section>
+
+    <section id="detail-view" class="view-section hidden">
+      <div class="container">
+        <article class="detail-card" id="product-detail-container"></article>
+      </div>
+    </section>
   </main>
 
-  <script>
-    const statusElement = document.getElementById('api-status');
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>Copyright 2026 LED Second Hand Market. All rights reserved.</p>
+      <p>Email: sales@ledsecondhandmarket.com</p>
+    </div>
+  </footer>
 
-    fetch('/api/hello')
-      .then((response) => response.json())
-      .then((data) => {
-        statusElement.innerHTML = `<strong>API status:</strong> ${data.message}`;
-      })
-      .catch(() => {
-        statusElement.innerHTML = '<strong>API status:</strong> unable to reach /api/hello';
-      });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
