@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cloudflare Pages Starter</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f4ee;
+      --panel: #ffffff;
+      --text: #132238;
+      --muted: #5b6472;
+      --accent: #1f6feb;
+      --accent-strong: #0b4db3;
+      --border: #d7dce3;
+      --shadow: 0 16px 40px rgba(19, 34, 56, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, #fff8e7 0, transparent 35%),
+        linear-gradient(180deg, #faf8f2 0%, var(--bg) 100%);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    main {
+      width: min(760px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 5vw, 56px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: var(--accent-strong);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(2.2rem, 5vw, 4.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.7;
+      max-width: 60ch;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    a {
+      text-decoration: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    a:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 10px 24px rgba(31, 111, 235, 0.22);
+    }
+
+    .secondary {
+      border-color: var(--border);
+      color: var(--text);
+      background: #fff;
+    }
+
+    .footer {
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .status {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f7f9fc;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .status strong {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="badge">Cloudflare Pages ready</div>
+    <h1>Static site starter for GitHub deployment.</h1>
+    <p>
+      This repo is ready to connect to Cloudflare Pages from GitHub. Push these files to a repository,
+      link it in the Cloudflare dashboard, and Pages will build and publish the site automatically.
+    </p>
+    <div class="actions">
+      <a class="primary" href="https://developers.cloudflare.com/pages/" target="_blank" rel="noreferrer">Pages docs</a>
+      <a class="secondary" href="https://dash.cloudflare.com/" target="_blank" rel="noreferrer">Open Cloudflare</a>
+    </div>
+    <div class="status" id="api-status"><strong>API status:</strong> checking /api/hello...</div>
+    <div class="footer">Replace this page with your real website content when you are ready.</div>
+  </main>
+
+  <script>
+    const statusElement = document.getElementById('api-status');
+
+    fetch('/api/hello')
+      .then((response) => response.json())
+      .then((data) => {
+        statusElement.innerHTML = `<strong>API status:</strong> ${data.message}`;
+      })
+      .catch(() => {
+        statusElement.innerHTML = '<strong>API status:</strong> unable to reach /api/hello';
+      });
+  </script>
+</body>
+</html>
