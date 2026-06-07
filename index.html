@@ -20,6 +20,7 @@
         <a href="#products">Products</a>
         <a href="#about">About Us</a>
         <a href="#contact">Contact</a>
+        <a href="#admin">Admin</a>
       </nav>
     </div>
   </header>
@@ -68,6 +69,42 @@
       </div>
     </section>
 
+    <section id="admin-view" class="view-section hidden">
+      <div class="container admin-panel">
+        <div class="admin-head">
+          <h2>Admin Panel</h2>
+          <p>Add, edit, and delete products. Data is stored in your browser using local storage.</p>
+        </div>
+
+        <form id="product-form" class="admin-form">
+          <input type="hidden" id="product-id">
+          <label>Name<input id="product-name" type="text" required></label>
+          <label>Image URL<input id="product-image" type="url" required placeholder="https://..."></label>
+          <label>Size<input id="spec-size" type="text" required></label>
+          <label>Pixel Pitch<input id="spec-pixel" type="text" required></label>
+          <label>Brightness<input id="spec-brightness" type="text" required></label>
+          <label>Refresh Rate<input id="spec-refresh" type="text" required></label>
+          <label>Voltage<input id="spec-voltage" type="text" required></label>
+          <label>Price / Inquiry<input id="product-price" type="text" required></label>
+          <label class="full">Description<textarea id="product-description" rows="4" required></textarea></label>
+          <div class="admin-actions full">
+            <button class="btn btn-primary" type="submit">Save Product</button>
+            <button class="btn btn-secondary" type="button" id="reset-form">Clear</button>
+          </div>
+        </form>
+
+        <div class="admin-tools">
+          <button class="btn btn-secondary" id="export-products" type="button">Export JSON</button>
+          <label class="import-label">
+            Import JSON
+            <input id="import-products" type="file" accept="application/json">
+          </label>
+        </div>
+
+        <div id="admin-product-list" class="admin-list"></div>
+      </div>
+    </section>
+
     <section id="detail-view" class="view-section hidden">
       <div class="container">
         <article class="detail-card" id="product-detail-container"></article>
@@ -78,7 +115,7 @@
   <footer class="site-footer">
     <div class="container footer-content">
       <p>Copyright 2026 LED Second Hand Market. All rights reserved.</p>
-      <p>Email: sales@ledsecondhandmarket.com</p>
+      <p>Email: sales01@usedleddisplay.com</p>
     </div>
   </footer>
 

@@ -264,6 +264,135 @@ h1 {
   padding: clamp(20px, 4vw, 34px);
 }
 
+.admin-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: clamp(20px, 4vw, 34px);
+}
+
+.admin-head h2 {
+  margin: 0;
+}
+
+.admin-head p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.admin-form {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.admin-form input,
+.admin-form textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  background: #fff;
+}
+
+.admin-form .full {
+  grid-column: 1 / -1;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-actions .btn {
+  margin-top: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-tools {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-tools .btn {
+  margin-top: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.import-label {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 14px;
+  background: #fff;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.import-label input {
+  display: none;
+}
+
+.admin-list {
+  margin-top: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.admin-item {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: #fff;
+}
+
+.admin-item h4 {
+  margin: 0 0 4px;
+}
+
+.admin-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.admin-item-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-item-actions button {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  padding: 8px 10px;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+}
+
 .text-panel h2,
 .detail-card h2 {
   margin: 0 0 10px;
@@ -376,6 +505,15 @@ h1 {
   }
 
   .card-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-item {
     flex-direction: column;
     align-items: flex-start;
   }

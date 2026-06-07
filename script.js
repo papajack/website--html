@@ -1,4 +1,4 @@
-const products = [
+const defaultProducts = [
   {
     id: "p3-indoor-full-color",
     name: "P3 Indoor Full Color Screen",
@@ -85,10 +85,15 @@ const products = [
   },
 ];
 
+const STORAGE_KEY = "led_second_hand_market_products_v1";
+
+let products = loadProducts();
+
 const views = {
   home: document.getElementById("home-view"),
   about: document.getElementById("about-view"),
   contact: document.getElementById("contact-view"),
+  admin: document.getElementById("admin-view"),
   detail: document.getElementById("detail-view"),
 };
 
@@ -97,6 +102,40 @@ const detailContainer = document.getElementById("product-detail-container");
 const navLinks = Array.from(document.querySelectorAll(".top-nav a"));
 const topNav = document.getElementById("top-nav");
 const menuToggle = document.getElementById("menu-toggle");
+const productForm = document.getElementById("product-form");
+const resetFormButton = document.getElementById("reset-form");
+const adminProductList = document.getElementById("admin-product-list");
+const exportButton = document.getElementById("export-products");
+const importInput = document.getElementById("import-products");
+
+function loadProducts() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (!stored) {
+    return [...defaultProducts];
+  }
+
+  try {
+    const parsed = JSON.parse(stored);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      return parsed;
+    }
+    return [...defaultProducts];
+  } catch (error) {
+    return [...defaultProducts];
+  }
+}
+
+function saveProducts() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+}
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
 
 function renderProducts() {
   productsGrid.innerHTML = products
@@ -124,6 +163,151 @@ function renderProducts() {
       </article>`;
     })
     .join("");
+}
+
+function renderAdminList() {
+  if (!adminProductList) {
+    return;
+  }
+
+  adminProductList.innerHTML = products
+    .map(
+      (product) => `
+      <article class="admin-item">
+        <div>
+          <h4>${product.name}</h4>
+          <p>${product.specs.pixelPitch} • ${product.specs.brightness} • ${product.price}</p>
+        </div>
+        <div class="admin-item-actions">
+          <button type="button" data-edit-id="${product.id}">Edit</button>
+          <button type="button" data-delete-id="${product.id}">Delete</button>
+        </div>
+      </article>
+      `
+    )
+    .join("");
+}
+
+function resetAdminForm() {
+  productForm.reset();
+  document.getElementById("product-id").value = "";
+}
+
+function fillAdminForm(product) {
+  document.getElementById("product-id").value = product.id;
+  document.getElementById("product-name").value = product.name;
+  document.getElementById("product-image").value = product.image;
+  document.getElementById("spec-size").value = product.specs.size;
+  document.getElementById("spec-pixel").value = product.specs.pixelPitch;
+  document.getElementById("spec-brightness").value = product.specs.brightness;
+  document.getElementById("spec-refresh").value = product.specs.refreshRate;
+  document.getElementById("spec-voltage").value = product.specs.voltage;
+  document.getElementById("product-description").value = product.description;
+  document.getElementById("product-price").value = product.price;
+}
+
+function handleAdminSave(event) {
+  event.preventDefault();
+
+  const idValue = document.getElementById("product-id").value.trim();
+  const name = document.getElementById("product-name").value.trim();
+  const image = document.getElementById("product-image").value.trim();
+  const size = document.getElementById("spec-size").value.trim();
+  const pixelPitch = document.getElementById("spec-pixel").value.trim();
+  const brightness = document.getElementById("spec-brightness").value.trim();
+  const refreshRate = document.getElementById("spec-refresh").value.trim();
+  const voltage = document.getElementById("spec-voltage").value.trim();
+  const description = document.getElementById("product-description").value.trim();
+  const price = document.getElementById("product-price").value.trim();
+
+  const baseId = slugify(name);
+  const finalId = idValue || `${baseId}-${Date.now()}`;
+
+  const productData = {
+    id: finalId,
+    name,
+    image,
+    specs: { size, pixelPitch, brightness, refreshRate, voltage },
+    description,
+    price,
+  };
+
+  const existingIndex = products.findIndex((product) => product.id === finalId);
+  if (existingIndex >= 0) {
+    products[existingIndex] = productData;
+  } else {
+    products.unshift(productData);
+  }
+
+  saveProducts();
+  renderProducts();
+  renderAdminList();
+  resetAdminForm();
+}
+
+function handleAdminListClick(event) {
+  const editId = event.target.getAttribute("data-edit-id");
+  const deleteId = event.target.getAttribute("data-delete-id");
+
+  if (editId) {
+    const product = products.find((item) => item.id === editId);
+    if (product) {
+      fillAdminForm(product);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    return;
+  }
+
+  if (deleteId) {
+    const shouldDelete = window.confirm("Delete this product?");
+    if (!shouldDelete) {
+      return;
+    }
+    products = products.filter((item) => item.id !== deleteId);
+    saveProducts();
+    renderProducts();
+    renderAdminList();
+    resetAdminForm();
+  }
+}
+
+function handleExport() {
+  const blob = new Blob([JSON.stringify(products, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "products.json";
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function handleImport(event) {
+  const file = event.target.files[0];
+  if (!file) {
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(String(reader.result));
+      if (!Array.isArray(parsed)) {
+        window.alert("Import failed: JSON must be an array of products.");
+        return;
+      }
+
+      products = parsed;
+      saveProducts();
+      renderProducts();
+      renderAdminList();
+      resetAdminForm();
+      window.alert("Products imported successfully.");
+    } catch (error) {
+      window.alert("Import failed: invalid JSON file.");
+    }
+  };
+  reader.readAsText(file);
+  importInput.value = "";
 }
 
 function renderDetail(id) {
@@ -183,6 +367,12 @@ function setActiveView(route) {
     return;
   }
 
+  if (route === "admin") {
+    views.admin.classList.remove("hidden");
+    setActiveNav("#admin");
+    return;
+  }
+
   views.home.classList.remove("hidden");
   setActiveNav(route === "products" ? "#products" : "#home");
 
@@ -218,6 +408,13 @@ menuToggle.addEventListener("click", () => {
   topNav.classList.toggle("open");
 });
 
+productForm.addEventListener("submit", handleAdminSave);
+resetFormButton.addEventListener("click", resetAdminForm);
+adminProductList.addEventListener("click", handleAdminListClick);
+exportButton.addEventListener("click", handleExport);
+importInput.addEventListener("change", handleImport);
+
 renderProducts();
+renderAdminList();
 window.addEventListener("hashchange", onRouteChange);
 onRouteChange();

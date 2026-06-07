@@ -30,6 +30,16 @@ Open `index.html` in your browser to test quickly.
 
 All product data is in `script.js` inside the `products` array.
 
+You can also manage products from the in-browser admin panel:
+
+1. Open the website.
+2. Click `Admin` in the top navigation.
+3. Add, edit, or delete products in the form/list.
+4. Use `Export JSON` and `Import JSON` for bulk updates.
+
+Admin panel changes are saved in browser local storage.
+If you want the same updates for all visitors, export the JSON and sync it into `script.js`, then push to GitHub.
+
 You can update:
 
 - `name`
