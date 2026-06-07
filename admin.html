@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Admin panel for managing used LED display products.">
+  <title>LED Second Hand Market - Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="admin">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">LED Second Hand Market</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">Menu</button>
+      <nav class="top-nav" id="top-nav">
+        <a href="index.html">Home</a>
+        <a href="product-cat.html">Products</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a class="active" href="admin.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="products-section">
+      <div class="container admin-panel" id="admin-login-wrap">
+        <div class="admin-head">
+          <h1>Admin Login</h1>
+          <p>Use your credentials to manage products.</p>
+        </div>
+        <form id="admin-login-form" class="admin-form compact-form">
+          <label>Username<input id="admin-username" type="text" required></label>
+          <label>Password<input id="admin-password" type="password" required></label>
+          <div class="admin-actions full">
+            <button class="btn btn-primary" type="submit">Sign In</button>
+          </div>
+        </form>
+        <p class="admin-hint">Change login credentials in script.js constants: ADMIN_USERNAME and ADMIN_PASSWORD.</p>
+      </div>
+
+      <div class="container admin-panel hidden" id="admin-manager-wrap">
+        <div class="admin-head">
+          <h2>Product Manager</h2>
+          <p>Create and edit products. Template styles can be selected per product.</p>
+        </div>
+
+        <form id="product-form" class="admin-form">
+          <input type="hidden" id="product-id">
+          <label>Name<input id="product-name" type="text" required></label>
+          <label>Category<input id="product-category" type="text" placeholder="Indoor / Outdoor / Rental" required></label>
+          <label>Image URL<input id="product-image" type="url" required placeholder="https://..."></label>
+          <label>Template
+            <select id="product-template" required>
+              <option value="template-a">Template A - Standard</option>
+              <option value="template-b">Template B - Spec Table</option>
+              <option value="template-c">Template C - Feature Badges</option>
+              <option value="template-d">Template D - Project Notes</option>
+            </select>
+          </label>
+          <label>Size<input id="spec-size" type="text" required></label>
+          <label>Pixel Pitch<input id="spec-pixel" type="text" required></label>
+          <label>Brightness<input id="spec-brightness" type="text" required></label>
+          <label>Refresh Rate<input id="spec-refresh" type="text" required></label>
+          <label>Voltage<input id="spec-voltage" type="text" required></label>
+          <label>Price / Inquiry<input id="product-price" type="text" required></label>
+          <label class="full">Description<textarea id="product-description" rows="4" required></textarea></label>
+          <div class="admin-actions full">
+            <button class="btn btn-primary" type="submit">Save Product</button>
+            <button class="btn btn-secondary" type="button" id="reset-form">Clear</button>
+            <button class="btn btn-secondary" type="button" id="admin-logout">Sign Out</button>
+          </div>
+        </form>
+
+        <div class="admin-tools">
+          <button class="btn btn-secondary" id="export-products" type="button">Export JSON</button>
+          <label class="import-label">
+            Import JSON
+            <input id="import-products" type="file" accept="application/json">
+          </label>
+        </div>
+
+        <div id="admin-product-list" class="admin-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>Copyright 2026 LED Second Hand Market. All rights reserved.</p>
+      <p>Email: sales01@usedleddisplay.com</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
